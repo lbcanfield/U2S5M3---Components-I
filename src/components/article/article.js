@@ -143,18 +143,28 @@ function articleMaker ( articleObj )
   const expandButton = document.createElement("span");
   expandButton.classList.add("expandButton");
   expandButton.textContent = "+";
+   /*
+  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
+  This listener should toggle the class 'article-open' on div.article.
+  */
+ expandButton.addEventListener( 'click', () =>
+  {
+    articleContainer.classList.toggle('article-open');
+  })
   articleContainer.appendChild( expandButton );
-  console.log( articleContainer );
+
+
+
   return articleContainer;
 }
 data.forEach( article =>
 {
   articles.appendChild(articleMaker( article )); 
 })
-/*
-  Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
-  This listener should toggle the class 'article-open' on div.article.
 
+
+
+/*
   Step 3: Don't forget to return something from your function!
 
   Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
