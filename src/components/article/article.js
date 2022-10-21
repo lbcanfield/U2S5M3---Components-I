@@ -90,6 +90,9 @@ const data = [
   }
 ];
 
+
+// Global Variables
+const articles = document.querySelector(".articles");
 /*
   Step 1: Write a component called 'articleMaker' to create an article.
   Your component is a function that takes an article object as its only argument,
@@ -103,7 +106,52 @@ const data = [
 
     <span class="expandButton">+</span>
   </div>
-
+*/
+function articleMaker ( articleObj )
+{
+  // Create the article container element
+  const articleContainer = document.createElement("div");
+  // Add the class 'article' to the contaner element
+  articleContainer.classList.add("article");
+  // Create the article title header
+  const articleTitle = document.createElement("h2");
+  // Add the text to the title header
+  articleTitle.textContent = articleObj.title;
+  // Add article date secton
+  const articleDate =document.createElement("p");
+  articleDate.classList.add("date");
+  articleDate.textContent = articleObj.date;
+  articleContainer.appendChild( articleTitle) ;
+  articleContainer.appendChild( articleDate);
+  for ( let i = 2; i < 5; i += 1 )
+  {
+   const articlePara = document.createElement("p")
+    switch ( i )
+    {
+      case 2:
+        articlePara.textContent = articleObj.firstParagraph;
+        break;
+      case 3:
+        articlePara.textContent = articleObj.secondParagraph;
+        break;
+      case 4:
+        articlePara.textContent = articleObj.thirdParagraph;
+        break;
+    }
+    articleContainer.appendChild( articlePara );
+  }
+  const expandButton = document.createElement("span");
+  expandButton.classList.add("expandButton");
+  expandButton.textContent = "+";
+  articleContainer.appendChild( expandButton );
+  console.log( articleContainer );
+  return articleContainer;
+}
+data.forEach( article =>
+{
+  articles.appendChild(articleMaker( article )); 
+})
+/*
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
 
