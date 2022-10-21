@@ -107,69 +107,68 @@ const articles = document.querySelector(".articles");
     <span class="expandButton">+</span>
   </div>
 */
-function articleMaker ( articleObj )
+
+function articleMaker ( {title, date, firstParagraph, secondParagraph, thirdParagraph } )
 {
-  // Create the article container element
-  const articleContainer = document.createElement("div");
-  // Add the class 'article' to the contaner element
-  articleContainer.classList.add("article");
-  // Create the article title header
+  const articleDiv = document.createElement("div");
   const articleTitle = document.createElement("h2");
-  // Add the text to the title header
-  articleTitle.textContent = articleObj.title;
-  // Add article date secton
-  const articleDate =document.createElement("p");
+  const articleDate = document.createElement("p");
+  const firstPara = document.createElement("p");
+  const secondPara = document.createElement("p");
+  const thirdPara = document.createElement("p");
+  const expandBtn = document.createElement("span");
+
+  articleDiv.classList.add("article");
   articleDate.classList.add("date");
-  articleDate.textContent = articleObj.date;
-  articleContainer.appendChild( articleTitle) ;
-  articleContainer.appendChild( articleDate);
-  for ( let i = 2; i < 5; i += 1 )
-  {
-   const articlePara = document.createElement("p")
-    switch ( i )
-    {
-      case 2:
-        articlePara.textContent = articleObj.firstParagraph;
-        break;
-      case 3:
-        articlePara.textContent = articleObj.secondParagraph;
-        break;
-      case 4:
-        articlePara.textContent = articleObj.thirdParagraph;
-        break;
-    }
-    articleContainer.appendChild( articlePara );
-  }
-  const expandButton = document.createElement("span");
-  expandButton.classList.add("expandButton");
-  expandButton.textContent = "+";
-   /*
+  expandBtn.classList.add("expandButton");
+
+  articleDiv.appendChild( articleTitle );
+  articleDiv.appendChild( articleDate );
+  articleDiv.appendChild( firstPara );
+  articleDiv.appendChild( secondPara );
+  articleDiv.appendChild( thirdPara );
+  articleDiv.appendChild( expandBtn );
+
+  articleTitle.textContent = title;
+  articleDate.textContent = date;
+  firstPara.textContent = firstParagraph;
+  secondPara.textContent = secondParagraph;
+  thirdPara.textContent = thirdParagraph;
+  expandBtn.textContent = '+';
+
+  /*
   Step 2: Still inside `articleMaker`, add an event listener to the span.expandButton.
   This listener should toggle the class 'article-open' on div.article.
   */
- expandButton.addEventListener( 'click', () =>
+
+  expandBtn.addEventListener( 'click', () =>
   {
-    articleContainer.classList.toggle('article-open');
+    articleDiv.classList.toggle( 'article-open' );
   })
-  articleContainer.appendChild( expandButton );
 
+  //Step 3: Don't forget to return something from your function!
+  return articleDiv;
 
-
-  return articleContainer;
+  /*Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
+  to create a div.article element and append it to the DOM inside div.articles (see index.html).*/
 }
 data.forEach( article =>
 {
   articles.appendChild(articleMaker( article )); 
 })
 
-
-
 /*
-  Step 3: Don't forget to return something from your function!
-
-  Step 4: Outside your function now, loop over the data. At each iteration you'll use your component
-  to create a div.article element and append it to the DOM inside div.articles (see index.html).
-
   Step 5: Try adding new article object to the data array. Make sure it is in the same format as the others.
   Refresh the page to see the new article.
 */
+
+const testArticle = articleMaker(
+{
+  title: "Mini Chips Ahoy!",
+  date: "Oct 21st, 2022",
+  firstParagraph: "Anytime, Anywhere!  Nabisco snak-saks are your favorie bite-size cookies available in reclosable bags that are perfect for on-the-go snacking.",
+  secondParagraph: "Ingredients:  Unbleached enrighed flour (wheat flour, niacin, reduced iorn, thiamine, mononitrate {vitamin b1}, riboflavin {vitamin b2}, folic acid), sugar, canola oil, palm and palm kernel oil, cocoa (processed with alkali), high fructose corn syrup, salt, dextrose, baking soda, milk, soy lecithin, natural and artificial flavor, caramel color.",
+  thirdParagraph: "This package is sold by weight, not by volume.  Packed ats full as practicable by modern automatic equipment, it contains full net weight indicated.  If it does not appear full when ongamepadconnected, it is because the contents have settled during shpping and handling."
+});
+
+articles.appendChild(testArticle);
